@@ -106,7 +106,18 @@
             background: linear-gradient(to bottom, rgba(5,5,4,0.92), rgba(5,5,4,0.54) 45%, transparent);
             border-bottom: 1px solid rgba(215,208,190,0.05);
         }
-        #mini-title { color: var(--text-soft); font-weight: 900; font-size: 1.1rem; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
+        #mini-title { 
+            color: var(--text-soft); 
+            font-weight: 900; 
+            font-size: 1.1rem; 
+            text-shadow: 0 0 10px rgba(0,0,0,0.8); 
+            cursor: pointer;
+            transition: color 0.25s, text-shadow 0.25s;
+        }
+        #mini-title:hover {
+            color: var(--algae-cyan);
+            text-shadow: 0 0 14px rgba(127,166,107,0.5);
+        }
         #hud { display: flex; gap: 20px; color: var(--text-soft); font-family: var(--font-code); font-weight: 800; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
         .stat-val { color: var(--algae-cyan); margin-left: 5px; text-shadow: 0 0 10px rgba(127,166,107,0.42); }
 
@@ -168,101 +179,256 @@
         }
 
         #bottom-dialogue-area {
-            position: absolute; bottom: 0; width: 100%; 
-            height: 280px; 
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 100%); 
-            z-index: 150; display: flex; padding: 40px 60px; box-sizing: border-box;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            align-items: flex-end;
-            justify-content: flex-end;
-            gap: 24px;
+            position: absolute;
+            left: 34px;
+            right: 34px;
+            bottom: 22px;
+            height: 260px;
+            z-index: 150;
+            display: grid;
+            grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.95fr);
+            gap: 18px;
+            box-sizing: border-box;
+            align-items: stretch;
+            pointer-events: none;
         }
         #bottom-dialogue-area::before {
             content:"";
             position:absolute;
+            inset:-10px -8px -8px -8px;
+            pointer-events:none;
+            border-radius: 26px;
+            background: linear-gradient(180deg, rgba(215,208,190,0.035), rgba(0,0,0,0));
+            filter: blur(18px);
+            opacity: 0.75;
+        }
+
+        .ui-shell {
+            position: relative;
+            height: 100%;
+            min-height: 0;
+            border: 1px solid rgba(215,208,190,0.12);
+            background:
+                linear-gradient(180deg, rgba(11,12,10,0.92), rgba(5,5,4,0.82)),
+                url('https://www.transparenttextures.com/patterns/natural-paper.png');
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.03),
+                inset 0 18px 40px rgba(255,255,255,0.015),
+                0 14px 36px rgba(0,0,0,0.36);
+            backdrop-filter: blur(4px);
+            overflow: hidden;
+            pointer-events: auto;
+        }
+        .ui-shell::before {
+            content:"";
+            position:absolute;
             inset:0;
             pointer-events:none;
-            opacity:0.22;
             background:
-                repeating-linear-gradient(176deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 13px),
-                linear-gradient(100deg, transparent, rgba(127,166,107,0.05), transparent);
+                linear-gradient(90deg, rgba(127,166,107,0.12) 0 6px, transparent 6px 100%),
+                repeating-linear-gradient(180deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 12px);
+            opacity: 0.55;
+        }
+        .ui-shell::after {
+            content:"";
+            position:absolute;
+            inset:12px;
+            border: 1px solid rgba(127,166,107,0.10);
+            pointer-events:none;
+            clip-path: polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px));
+            opacity: 0.9;
+        }
+
+        #text-shell {
+            padding: 18px 22px 18px 22px;
+            border-radius: 18px;
+        }
+        #choices-shell {
+            padding: 18px;
+            border-radius: 18px;
+        }
+        .ui-panel-label {
+            position: relative;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding: 7px 12px;
+            font-family: var(--font-code);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: var(--text-soft);
+            text-transform: uppercase;
+            background: rgba(127,166,107,0.10);
+            border: 1px solid rgba(127,166,107,0.24);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.28);
+        }
+        .ui-panel-label::before {
+            content: "◆";
+            color: var(--algae-cyan);
+            font-size: 0.7rem;
         }
 
         #text-section { 
-            width: 42%;
-            margin-left: auto;
+            position: relative;
+            z-index: 2;
+            width: 100%;
             display: flex; 
             flex-direction: column; 
-            height: 100%; 
+            height: calc(100% - 42px);
+            min-height: 0;
             overflow: hidden; 
         }
 
         #scene-title { 
-            color: var(--algae-cyan); font-family: var(--font-code); font-weight: 800; font-size: 0.9rem; 
-            border-left: 4px solid var(--algae-cyan); padding-left: 10px; margin-bottom: 20px; flex-shrink: 0;
+            color: var(--algae-cyan);
+            font-family: var(--font-code);
+            font-weight: 800;
+            font-size: 0.92rem; 
+            border-left: 4px solid var(--algae-cyan);
+            padding: 8px 0 8px 12px;
+            margin: 0 0 14px 0;
+            flex-shrink: 0;
             text-shadow: 0 0 13px rgba(127,166,107,0.35);
+            background: linear-gradient(90deg, rgba(127,166,107,0.10), transparent 70%);
         }
         
         #dialogue-log { 
-            color: var(--text-soft); font-size: 1.15rem; line-height: 1.8; white-space: pre-wrap; 
-            flex-grow: 1; position: relative; 
+            color: var(--text-soft);
+            font-size: 1.05rem;
+            line-height: 1.78;
+            white-space: pre-wrap; 
+            flex: 1 1 auto;
+            min-height: 0;
+            position: relative; 
             overflow-y: auto; 
-            padding-right: 15px;
+            padding: 2px 16px 12px 2px;
             scroll-behavior: smooth;
             text-shadow: 0 0 12px rgba(0,0,0,0.8);
-        } 
+        }
 
-        #dialogue-log::-webkit-scrollbar { width: 4px; }
-        #dialogue-log::-webkit-scrollbar-thumb { background: var(--algae-dim); border-radius: 2px; }
-        #dialogue-log::-webkit-scrollbar-track { background: transparent; }
+        #dialogue-log::-webkit-scrollbar { width: 5px; }
+        #dialogue-log::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--algae-cyan), var(--algae-dim)); border-radius: 999px; }
+        #dialogue-log::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
 
-        .dialogue-unit { 
-            margin-bottom: 20px; 
+        .dialogue-unit {
+            position: relative;
+            margin-bottom: 14px;
+            padding: 12px 14px 12px 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-left: 3px solid rgba(127,166,107,0.42);
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.10));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
             animation: slideInUp 0.6s ease-out forwards; 
         }
+        .dialogue-unit:last-child { margin-bottom: 0; }
 
         @keyframes slideInUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .speaker-label { font-family: var(--font-code); font-weight: 800; padding: 2px 8px; border-radius: 2px; margin-bottom: 10px; display: inline-block; font-size: 0.8rem; box-shadow: inset 0 0 12px rgba(0,0,0,0.26); }
-        .sp-zeno { background: #3F604B; color: #F0EADB; }
-        .sp-lina { background: #9E6B24; color: #F8EBD0; }
-        .sp-system { color: var(--system-red); font-weight: 900; text-shadow: 0 0 10px rgba(156,62,53,0.38); }
+        .speaker-label {
+            font-family: var(--font-code);
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+            display: inline-block;
+            font-size: 0.76rem;
+            letter-spacing: 0.06em;
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.26);
+        }
+        .sp-zeno { background: linear-gradient(180deg, #486B56, #304A3C); color: #F0EADB; }
+        .sp-lina { background: linear-gradient(180deg, #B57A2D, #8C5C1A); color: #F8EBD0; }
+        .sp-system { background: rgba(156,62,53,0.18); border: 1px solid rgba(156,62,53,0.34); color: #E7B4AF; font-weight: 900; text-shadow: 0 0 10px rgba(156,62,53,0.38); }
+        .content { display:block; color: var(--text-soft); }
+
+        .ui-footnote {
+            position: absolute;
+            right: 18px;
+            bottom: 14px;
+            z-index: 2;
+            font-family: var(--font-code);
+            font-size: 0.72rem;
+            color: rgba(215,208,190,0.55);
+            letter-spacing: 0.08em;
+        }
 
         #choices-container { 
-            width: 28%;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-height: calc(100% - 42px);
+            overflow-y: auto;
+            padding-right: 4px;
             display: flex; 
-            flex-direction: row;
-            gap: 20px;
-            justify-content: flex-end; 
+            flex-direction: column;
+            gap: 12px;
+            justify-content: flex-start; 
             align-items: stretch; 
         }
         .choice-btn { 
-            flex: 1;
-            min-width: 150px;
-            padding: 15px 10px; background: rgba(12,13,10,0.70); color: var(--text-soft); border: 1px solid rgba(127,166,107,0.72);
-            font-weight: 800; cursor: pointer; transition: 0.3s; opacity: 0; font-size: 0.85rem;
-            text-align: center;
+            position: relative;
+            width: 100%;
+            min-height: 72px;
+            padding: 14px 16px 14px 48px;
+            background: linear-gradient(180deg, rgba(18,20,16,0.92), rgba(10,11,8,0.88));
+            color: var(--text-soft);
+            border: 1px solid rgba(127,166,107,0.26);
+            border-left: 4px solid rgba(127,166,107,0.72);
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease, opacity 0.3s;
+            opacity: 0;
+            font-size: 0.92rem;
+            text-align: left;
             word-break: keep-all;
-            box-shadow: inset 0 0 22px rgba(0,0,0,0.42), 0 0 14px rgba(0,0,0,0.45);
+            line-height: 1.45;
+            box-shadow: inset 0 0 22px rgba(0,0,0,0.42), 0 8px 18px rgba(0,0,0,0.28);
             backdrop-filter: blur(2px);
         }
-        .choice-btn.show { opacity: 1; }
-        .choice-btn:hover { background: var(--algae-cyan); color: #050504; box-shadow: 0 0 22px rgba(127,166,107,0.32); }
-    
-        /* 버튼 텍스트 길이가 달라도 장면별 버튼 크기 고정 */
-        .choice-btn {
-            min-height: 64px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.35;
+        .choice-btn::before {
+            content: attr(data-index);
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-family: var(--font-code);
+            font-size: 0.72rem;
+            color: #050504;
+            background: var(--algae-cyan);
+            box-shadow: 0 0 10px rgba(127,166,107,0.28);
         }
-        #choices-container {
-            align-items: stretch;
+        .choice-btn.show { opacity: 1; }
+        .choice-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(180deg, rgba(127,166,107,0.22), rgba(14,15,11,0.92));
+            border-color: rgba(127,166,107,0.62);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.34), 0 0 18px rgba(127,166,107,0.18);
+        }
+        .choice-btn:active { transform: translateY(0); }
+
+        #choices-container::-webkit-scrollbar { width: 5px; }
+        #choices-container::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--algae-cyan), var(--algae-dim)); border-radius: 999px; }
+        #choices-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+
+
+        @media (max-width: 1200px) {
+            #bottom-dialogue-area {
+                grid-template-columns: 1fr;
+                left: 20px;
+                right: 20px;
+                bottom: 18px;
+            }
+            #choices-shell { height: auto; min-height: 190px; }
         }
     </style>
 </head>
@@ -276,10 +442,10 @@
 
     <div id="game-container">
         <div id="top-bar">
-            <div id="mini-title">에덴의 노이즈 : 1%의 이탈자</div>
+            <div id="mini-title" onclick="goToCover()">에덴의 노이즈 : 1%의 이탈자</div>
             <div id="hud">
                 <div>SYNC <span id="sync" class="stat-val">0</span></div>
-                <div>INTEG <span id="integ" class="stat-val">50</span></div>
+                <div>INTEG <span id="integ" class="stat-val">0</span></div>
                 <div>NOISE <span id="noise" class="stat-val">0</span></div>
                 <div>BIO_E <span id="bioE" class="stat-val">100</span>%</div>
             </div>
@@ -291,16 +457,24 @@
         </div>
 
         <div id="bottom-dialogue-area">
-            <div id="text-section">
-                <div id="scene-title"></div> 
-                <div id="dialogue-log"></div> 
+            <div id="text-shell" class="ui-shell">
+                <div class="ui-panel-label">Story Console</div>
+                <div id="text-section">
+                    <div id="scene-title"></div>
+                    <div id="dialogue-log"></div>
+                </div>
+                <div class="ui-footnote">AUTO STORY STREAM</div>
             </div>
-            <div id="choices-container"></div>
+            <div id="choices-shell" class="ui-shell">
+                <div class="ui-panel-label">Path Select</div>
+                <div id="choices-container"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        let state = { sync: 0, integ: 50, noise: 0, bioE: 100 };
+        let state = { sync: 0, integ: 0, noise: 0, bioE: 100 };
+        let renderToken = 0;
 
         const scenes = {
             "S1": {
@@ -419,7 +593,7 @@
                     { sp: "zeno", txt: "에덴은 끝났어. 이제 우리의 노이즈로 우리만의 노래를 부르자." }
                 ],
                 choices: [
-                    { text: "처음으로 돌아가기 [모든 데이터 초기화]", action: () => { state.sync = 0; state.integ = 50; state.noise = 0; state.bioE = 100; }, next: "S1" }
+                    { text: "처음으로 돌아가기 [모든 데이터 초기화]", action: () => { state.sync = 0; state.integ = 0; state.noise = 0; state.bioE = 100; }, next: "S1" }
                 ]
             }
         };
@@ -430,67 +604,138 @@
             render("S1");
         }
 
-        function typeWriter(element, text, speed) {
+        function goToCover() {
+            renderToken++;
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('cover-area').style.display = 'flex';
+
+            state.sync = 0;
+            state.integ = 0;
+            state.noise = 0;
+            state.bioE = 100;
+            updateUI();
+
+            document.getElementById('dialogue-log').innerHTML = "";
+            document.getElementById('choices-container').innerHTML = "";
+            document.getElementById('scene-title').innerText = "";
+
+            const overlay = document.getElementById('black-narration-layer');
+            const imgLayer = document.getElementById('actual-image-layer');
+            if (overlay) overlay.style.opacity = "0";
+            if (imgLayer) imgLayer.style.opacity = "0";
+
+            const video = document.getElementById("scene-video");
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+
+            const audio = document.getElementById("scene-audio");
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function typeWriter(element, text, speed, token) {
             return new Promise(resolve => {
                 let i = 0;
-                element.innerText = ""; 
+                element.innerText = "";
                 const formattedText = text.replace(/([.?!])\s+/g, "$1\n");
                 const log = document.getElementById('dialogue-log');
-                
+
                 function typing() {
+                    if (token !== renderToken) {
+                        resolve(false);
+                        return;
+                    }
+
                     if (i < formattedText.length) {
                         element.innerText += formattedText.charAt(i);
                         i++;
-                        if(element.parentElement.id !== "black-narration-layer") {
+
+                        if (element.parentElement.id !== "black-narration-layer") {
                             log.scrollTop = log.scrollHeight;
                         }
+
                         setTimeout(typing, speed);
-                    } else { resolve(); }
+                    } else {
+                        resolve(true);
+                    }
                 }
+
                 typing();
             });
         }
 
         async function render(sceneId) {
+            const token = ++renderToken;
             const scene = scenes[sceneId];
-            if(!scene) return;
+            if (!scene) return;
 
             const overlay = document.getElementById('black-narration-layer');
             const narText = document.getElementById('narration-text');
             const diagLog = document.getElementById('dialogue-log');
             const imgLayer = document.getElementById('actual-image-layer');
+            const choicesBox = document.getElementById('choices-container');
 
             updateUI();
             document.getElementById('scene-title').innerText = scene.title;
-            diagLog.innerHTML = ""; 
-            document.getElementById('choices-container').innerHTML = "";
+            diagLog.innerHTML = "";
+            choicesBox.innerHTML = "";
 
             overlay.style.opacity = "1";
-            await typeWriter(narText, scene.narration, 30);
-            await new Promise(r => setTimeout(r, 1500));
+            imgLayer.style.opacity = "0";
+
+            const narrationDone = await typeWriter(narText, scene.narration, 30, token);
+            if (!narrationDone || token !== renderToken) return;
+
+            await sleep(900);
+            if (token !== renderToken) return;
+
             overlay.style.opacity = "0";
             imgLayer.style.opacity = "1";
 
             for (let d of scene.dialogue) {
+                if (token !== renderToken) return;
+
                 const unit = document.createElement('div');
                 unit.className = "dialogue-unit";
                 let label = d.sp === "system" ? "SYSTEM_LOG" : d.sp.toUpperCase();
                 unit.innerHTML = `<span class="speaker-label sp-${d.sp}">${label}</span><br><span class="content"></span>`;
-                diagLog.appendChild(unit); 
-                
+                diagLog.appendChild(unit);
+
                 const contentElem = unit.querySelector('.content');
-                await typeWriter(contentElem, d.txt, 25);
-                await new Promise(r => setTimeout(r, 1500));
+                const dialogueDone = await typeWriter(contentElem, d.txt, 25, token);
+                if (!dialogueDone || token !== renderToken) return;
+
+                await sleep(700);
             }
 
-            for (let c of scene.choices) {
+            scene.choices.forEach((c, idx) => {
                 const btn = document.createElement('button');
                 btn.className = "choice-btn";
+                btn.dataset.index = String.fromCharCode(65 + idx);
                 btn.innerText = c.text;
-                btn.onclick = () => { c.action(); render(c.next); };
-                document.getElementById('choices-container').appendChild(btn);
-                setTimeout(() => btn.classList.add('show'), 100);
-            }
+
+                btn.onclick = () => {
+                    document.querySelectorAll('.choice-btn').forEach(b => {
+                        b.disabled = true;
+                        b.style.pointerEvents = "none";
+                        b.style.opacity = "0.55";
+                    });
+
+                    c.action();
+                    render(c.next);
+                };
+
+                choicesBox.appendChild(btn);
+                setTimeout(() => btn.classList.add('show'), 100 + idx * 60);
+            });
         }
 
         function updateUI() {
