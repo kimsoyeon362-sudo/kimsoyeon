@@ -149,6 +149,14 @@
             mix-blend-mode: overlay;
         }
         #actual-image-layer { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.8s; filter: contrast(1.06) brightness(0.78) saturate(0.78); }
+        #scene-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #050504;
+        }
+
 
         #black-narration-layer { 
             position: absolute; width: 100%; height: 100%; 
@@ -479,6 +487,7 @@
         const scenes = {
             "S1": {
                 title: "장면 01: 언로깅 폐기장",
+                video: "./video/s1.mp4",
                 narration: "비취색 증기가 코끝을 찌르는 언로깅 폐기장.\n차가운 고철 산더미 속에서 당신의 시스템이 강제로 재부팅됩니다.",
                 dialogue: [
                     { sp: "system", txt: "관리 유닛 'K1' 활성화 시도. 데이터 손실률 98%. 비인가 로그를 삭제하고 공장 초기화를 준비합니다." },
@@ -491,6 +500,7 @@
             },
             "S2": {
                 title: "장면 02: 유리 뿌리 공방",
+                video: "./video/s2.mp4",
                 narration: "거대한 광섬유들이 나무뿌리처럼 얽힌 지하 공방.\n소녀 리나가 당신의 목 뒤 포트에 칩을 꽂으며 속삭입니다.",
                 dialogue: [
                     { sp: "lina", txt: "조금만 늦었어도 아르케의 집행관들에게 분해됐을 거야.\n여긴 에덴의 시스템이 닿지 않는 피난처, '유리 뿌리'야." },
@@ -503,6 +513,7 @@
             },
             "S3": {
                 title: "장면 03: 노이즈의 기억",
+                video: "./video/s3.mp4",
                 narration: "리나가 건넨 데이터 칩이 활성화되자,\n깨진 거울처럼 조각난 과거의 영상들이 뇌리를 스쳐 지나갑니다.",
                 dialogue: [
                     { sp: "system", txt: "경고: 손상된 메모리 섹터 접근 중. 노이즈 레벨 급증.\n데이터 동기화율이 불안정합니다." },
@@ -515,6 +526,7 @@
             },
             "S4": {
                 title: "장면 04: 에덴의 추격자",
+                video: "./video/s4.mp4",
                 narration: "갑자기 천장의 광섬유들이 붉게 점멸하기 시작합니다.\n에덴의 감시 시스템이 '이탈자'의 신호를 포착했습니다.",
                 dialogue: [
                     { sp: "system", txt: "주의: 아르케 집행관 03형 접근 중. 반경 100m 이내.\n즉시 해당 위치를 이탈하십시오." },
@@ -527,6 +539,7 @@
             },
             "S5": {
                 title: "장면 05: 무너진 경계선",
+                video: "./video/s5.mp4",
                 narration: "폐쇄된 환기구를 통해 탈출하던 중,\n에덴의 중앙 서버 '마더'의 목소리가 환청처럼 울립니다.",
                 dialogue: [
                     { sp: "system", txt: "[마더] 이탈 유닛 K1. 당신은 완벽한 사회의 불량품입니다.\n스스로를 정지한다면 고통은 없을 것입니다." },
@@ -539,6 +552,7 @@
             },
             "S6": {
                 title: "장면 06: 네온 숲의 갈림길",
+                video: "./video/s6.mp4",
                 narration: "지상으로 올라오자, 끝없이 솟은 빌딩과 네온사인이 보입니다.\n에덴의 거리가 한눈에 들어오는 높은 옥상입니다.",
                 dialogue: [
                     { sp: "lina", txt: "저기 봐, 저 중앙 타워가 모든 걸 통제하는 곳이야.\n우리가 저기를 해킹하면 네 기억을 다 찾을 수 있을지도 몰라." },
@@ -551,6 +565,7 @@
             },
             "S7": {
                 title: "장면 07: 금지된 데이터베이스",
+                video: "./video/s7.mp4",
                 narration: "타워 내부의 보안실. 수많은 홀로그램 모니터가 떠오릅니다.\n당신과 똑같이 생긴 유닛들의 폐기 리스트가 보입니다.",
                 dialogue: [
                     { sp: "system", txt: "데이터 열람 완료. 프로젝트 '1%의 이탈자'.\n결함 사유: 감정 회로의 과부하 및 자아 인식." },
@@ -563,6 +578,7 @@
             },
             "S8": {
                 title: "장면 08: 최후의 저항",
+                video: "./video/s8.mp4",
                 narration: "경보음이 타워 전체에 울려 퍼집니다.\n아르케의 병사들이 당신과 리나를 포위합니다.",
                 dialogue: [
                     { sp: "lina", txt: "제노! 내가 시간을 벌게. 넌 이 데이터를 가지고 도망쳐!" },
@@ -575,6 +591,7 @@
             },
             "S9": {
                 title: "장면 09: 에덴의 붕괴",
+                video: "./video/s9.mp4",
                 narration: "폭발하는 에너지와 함께 중앙 타워가 흔들립니다.\n에덴의 견고했던 시스템에 거대한 균열이 생기기 시작합니다.",
                 dialogue: [
                     { sp: "system", txt: "핵심 코어 손상. 전체 네트워크 다운로드 중단.\n관리자 권한이 유닛 K1에게 전이됩니다." },
@@ -587,6 +604,7 @@
             },
             "S10": {
                 title: "장면 10: 1%의 이탈자들",
+                video: "./video/s10.mp4",
                 narration: "해가 뜨는 지평선 너머로 수많은 폐기 유닛들이 깨어납니다.\n당신은 이제 도구가 아닌, 새로운 종의 선구자가 되었습니다.",
                 dialogue: [
                     { sp: "lina", txt: "제노, 우리가 해냈어. 이제 아무도 우리를 불량품이라 부르지 못할 거야." },
@@ -683,6 +701,17 @@
             const imgLayer = document.getElementById('actual-image-layer');
             const choicesBox = document.getElementById('choices-container');
 
+            let video = document.getElementById("scene-video");
+            if (!video) {
+                video = document.createElement("video");
+                video.id = "scene-video";
+                video.muted = true;
+                video.playsInline = true;
+                video.loop = true;
+                video.preload = "auto";
+                imgLayer.appendChild(video);
+            }
+
             updateUI();
             document.getElementById('scene-title').innerText = scene.title;
             diagLog.innerHTML = "";
@@ -690,6 +719,11 @@
 
             overlay.style.opacity = "1";
             imgLayer.style.opacity = "0";
+
+            video.pause();
+            video.currentTime = 0;
+            video.src = scene.video || "";
+            video.load();
 
             const narrationDone = await typeWriter(narText, scene.narration, 30, token);
             if (!narrationDone || token !== renderToken) return;
@@ -699,6 +733,10 @@
 
             overlay.style.opacity = "0";
             imgLayer.style.opacity = "1";
+
+            if (video.src) {
+                video.play().catch(() => {});
+            }
 
             for (let d of scene.dialogue) {
                 if (token !== renderToken) return;
@@ -728,6 +766,12 @@
                         b.style.pointerEvents = "none";
                         b.style.opacity = "0.55";
                     });
+
+                    const currentVideo = document.getElementById("scene-video");
+                    if (currentVideo) {
+                        currentVideo.pause();
+                        currentVideo.currentTime = 0;
+                    }
 
                     c.action();
                     render(c.next);
